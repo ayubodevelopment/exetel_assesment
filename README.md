@@ -11,3 +11,5 @@ and you can test the REST api using postman. I have listed the postman link with
 - First create a user using register api
 - Use the login and get the token
 - Use the genrated token to test the CRUD fuctionality of customer API
+
+postman link - https://documenter.getpostman.com/view/5230351/2s93m1Z4bR
