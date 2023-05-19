@@ -4,7 +4,7 @@ This assesment include the API for authenticating user using jwt & CRUD API for 
 
 ## Installation & guid to test
 
-use the docker configuration and deploy it.
+Clone the repo and use the docker configuration and deploy it.
 
 and you can test the REST api using postman. I have listed the postman link with example for each function.
 
