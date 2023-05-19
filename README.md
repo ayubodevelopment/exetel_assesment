@@ -6,6 +6,10 @@ This assesment include the API for authenticating user using jwt & CRUD API for 
 
 Clone the repo and use the docker configuration and deploy it.
 
+and run the below commands to migrate the DB inside "backed server" container 
+- php artisan migrate
+
+
 and you can test the REST api using postman. I have listed the postman link with example for each function.
 
 - First create a user using register api
