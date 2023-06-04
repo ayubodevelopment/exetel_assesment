@@ -9,8 +9,12 @@ Clone the repo and use the docker configuration build and deploy it.
 and run the below commands to migrate the DB inside "backed server" container 
 - php artisan migrate
 
-Go to http://localhost:8000/ in browser to open the Web application
+test the application by running " php artisan test ". this should test the CURD functional API calls of customer table.
 
-first register a user and use that credentials to login to the application
+To access the web
 
-test the application
+ - Go to http://localhost:8000/ in browser to open the Web application
+
+ - first register a user and use that credentials to login to the application
+
+ - test the application
