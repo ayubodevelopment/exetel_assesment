@@ -77,7 +77,7 @@
                         success: function(response) {
                             // console.log(response);
                             alert("Successfully deleted the record");
-                            location.reload();
+                            fetchCustomers();
                         },
                         error: function(xhr, status, error) {
                             console.error(xhr.responseText);
