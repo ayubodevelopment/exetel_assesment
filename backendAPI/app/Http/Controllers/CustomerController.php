@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Validator;
 class CustomerController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:api');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,6 +23,12 @@ class CustomerController extends Controller
         return response()->json(['data' => $customers], 200);
     }
 
+    //show all customers web view
+    public function list()
+    {
+        return view('customers.list');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +36,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create');
     }
 
     /**
@@ -88,7 +89,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        return view('customers.edit', compact('customer'));
     }
 
     /**

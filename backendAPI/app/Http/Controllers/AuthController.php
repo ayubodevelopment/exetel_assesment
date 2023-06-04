@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -9,11 +12,7 @@ use App\Models\User;
 class AuthController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
-    }
-
+    // handles API login call
     public function login(Request $request)
     {
         $request->validate([
@@ -42,6 +41,7 @@ class AuthController extends Controller
 
     }
 
+    // handles register in API
     public function register(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',
@@ -88,4 +88,64 @@ class AuthController extends Controller
         ]);
     }
 
+    //login page view
+    public function index()
+    {
+        return view('auth.login');
+    }
+
+    //handling web login post request
+    public function customLogin(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+    
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect("/customers")->withSuccess('Login Successfull');
+        }
+   
+        return redirect("login")->withSuccess('Login details are not valid');
+    }
+
+    //registration page web view
+    public function registration()
+    {
+        return view('auth.registration');
+    }
+
+    //handling registration post submitted through web view
+    public function customRegistration(Request $request)
+    {  
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+            
+        $data = $request->all();
+        $check = $this->create($data);
+          
+        return redirect("/login")->withSuccess('You have signed-in');
+    }
+
+    //create new user function
+    private function create(array $data)
+    {
+      return User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'password' => Hash::make($data['password'])
+      ]);
+    }
+
+    //handling logout in web view
+    public function signOut() {
+        Session::flush();
+        Auth::logout();
+   
+        return Redirect('login');
+    }
 }
